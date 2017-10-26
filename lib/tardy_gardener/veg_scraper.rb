@@ -15,6 +15,7 @@ class TardyGardener::VegScraper
   def self.scrape_veg_descriptions
     TardyGardener::Vegetable.all.each do | vegetable |
       doc = Nokogiri::HTML(open(vegetable.url_basic_info))
+      vegetable.summary = doc.css('.normal p')[2].text.gsub("\r\n", "")
       binding.pry
     end
   end
