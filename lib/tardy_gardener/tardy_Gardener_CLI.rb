@@ -4,7 +4,15 @@ class TardyGardener::TardyGardenerCLI
   end
 
   def call
-    puts "#call is working, yo."
+    puts "Welcome to Tardy Gardener!"
+    veg_basic_data = TardyGardener::VegScraper.scrape_veg
+
   end
+
+
+
+  #create_veg(veg_basic_data)
+
+  #def create_veg(data)
 
 end
