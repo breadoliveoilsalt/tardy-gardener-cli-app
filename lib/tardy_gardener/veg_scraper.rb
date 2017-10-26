@@ -1,17 +1,15 @@
-class s
-
-  def initialize
-  end
+class TardyGardener::VegScraper
 
   def self.scrape_veg_basics
-    # doc = Nokogiri::HTML(open("http://www.gardening.cornell.edu/homegardening/scene0391.html"))
     array_veg_data = [ ]
     doc = Nokogiri::HTML(open("http://www.gardening.cornell.edu/homegardening/scene0391.html")).css("div.intromuted a")
     doc.collect do | veg_element |
         veg_hash = { }
         veg_hash[:name] = veg_element.text
-        veg_hash[:url_basic_info] = veg_element['href']
-      end
+        veg_hash[:url_basic_info] = "http://www.gardening.cornell.edu/homegardening/#{veg_element['href']}"
+        array_veg_data << veg_hash
+    end
+    array_veg_data
   end
 
 
