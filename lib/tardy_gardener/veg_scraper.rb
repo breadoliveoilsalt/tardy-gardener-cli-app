@@ -12,6 +12,12 @@ class TardyGardener::VegScraper
     array_veg_data
   end
 
+  def self.scrape_veg_descriptions
+    TardyGardener::Vegetable.all.each do | vegetable |
+      doc = Nokogiri::HTML(open(vegetable.url_basic_info))
+      binding.pry
+    end
+  end
 
   # This seems to have gotten them
 
