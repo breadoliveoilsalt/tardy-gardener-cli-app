@@ -12,7 +12,7 @@ class TardyGardener::TardyGardenerCLI
 
   def create_veg(data)
     data.each do | veg_info |
-      Vegetable.new(veg_info)
+      TardyGardener::Vegetable.new(veg_info)
     end
   end
 
