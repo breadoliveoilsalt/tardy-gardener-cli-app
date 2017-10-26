@@ -1,8 +1,10 @@
-class TardyGardener::CLI
+class TardyGardener::TardyGardenerCLI
 
   def initialize
-    puts "You're now in the cli class"
-    puts "fourth time's the charm"
+  end
+
+  def call
+    puts "#call is working, yo."
   end
 
 end
