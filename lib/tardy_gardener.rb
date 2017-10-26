@@ -3,7 +3,7 @@
 require 'pry'
 require 'require_all'
 
-require_relative "./tardy_gardener/version"
+#require_relative "./tardy_gardener/version"
 require_all "./lib/tardy_gardener/"
 
 module TardyGardener
