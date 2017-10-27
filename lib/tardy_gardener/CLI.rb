@@ -44,7 +44,7 @@ class TardyGardener::CLI
 
   def display_vegetables(start_num)
 
-    end_num = find_end_num(start_num)
+    end_num = determine_end_num(start_num)
 
     puts "\n\nHere is a list of vegetables:\n\n "
 
@@ -86,15 +86,24 @@ class TardyGardener::CLI
     input = gets.strip.downcase
 
     if input == "more"
-      end_num == all_veg.count ? display_vegetables(1) : display_vegetables(start_num)
+      restart_or_continue_list?(start_num, end_num)
     elsif input.to_i.between?(1, all_veg.count)
-      index = input.to_i - 1
-      puts "\n\n#{all_veg[index].name}:  #{all_veg[index].summary}\n\n"
+      display_summary(input)
+
     end
 
   end
 
-  def find_end_num(start_num)
+  def restart_or_continue_list?(start_num, end_num)
+    end_num == all_veg.count ? display_vegetables(1) : display_vegetables(start_num)
+  end
+
+  def display_summary(input)
+    index = input.to_i - 1
+    puts "\n\n#{all_veg[index].name}:  #{all_veg[index].summary}\n\n"
+  end
+
+  def determine_end_num(start_num)
     if start_num + 14 < all_veg.count
       start_num + 14
     else
