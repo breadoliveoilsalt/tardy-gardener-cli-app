@@ -20,8 +20,8 @@ class TardyGardener::CLI
   end
 
   def create_vegetable_objects(initial_data_array)
-    initial_data_array.each do | veg_info |
-      TardyGardener::Vegetable.new(veg_info)
+    initial_data_array.each do | veg_hash |
+      TardyGardener::Vegetable.new(veg_hash)
     end
     add_descriptions_to_vegetable_objects
     #add_maturity_date_to_vegetable_objects
