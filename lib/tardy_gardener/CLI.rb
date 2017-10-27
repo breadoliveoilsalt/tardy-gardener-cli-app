@@ -2,7 +2,7 @@ class TardyGardener::CLI
 
   def call
     welcome
-    create_vegetable_objects(veg_basic_data)
+    create_and_populate_vegetable_objects
 
   end
 
@@ -19,21 +19,25 @@ class TardyGardener::CLI
         HEREDOC
   end
 
-  def create_vegetable_objects(initial_data_array)
-    initial_data_array.each do | veg_hash |
-      TardyGardener::Vegetable.new(veg_hash)
-    end
-    add_descriptions_to_vegetable_objects
-    #add_maturity_date_to_vegetable_objects
-      #need to add this last one
+  def create_and_populate_vegetable_objects
+    veg_create_objects(basic_data)
+    veg_add_summary_etc
+#    veg_add_maturity_info(data_level_3)
   end
 
-  def veg_basic_data
+
+  def veg_create_objects(data)
+    data.each do | veg_hash |
+      TardyGardener::Vegetable.new(veg_hash)
+    end
+  end
+
+  def basic_data
     TardyGardener::VegScraper.scrape_veg_basics
   end
 
-  def add_descriptions_to_vegetable_objects
-    TardyGardener::VegScraper.scrape_veg_descriptions
+  def veg_add_summary_etc
+    TardyGardener::VegScraper.scrape_veg_summary_etc
   end
 
 

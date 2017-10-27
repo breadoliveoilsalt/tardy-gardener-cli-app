@@ -12,10 +12,12 @@ class TardyGardener::VegScraper
     array_veg_data
   end
 
-  def self.scrape_veg_descriptions
+  def self.scrape_veg_summary_etc
     TardyGardener::Vegetable.all.each do | vegetable |
       doc = Nokogiri::HTML(open(vegetable.url_basic_info))
       vegetable.summary = doc.css('.normal p')[2].text.gsub("\r\n", "")
+      vegetable.light = doc.css("div.intro ul li")[0].text
+      vegetable.sprouting_time = doc.css("div.intro blockquote p")[2].text.gsub(/[\r\n\t]/, "").gsub(/Days to emergence: \d\d? to /, "")
     end
   end
 
