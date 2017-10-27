@@ -15,9 +15,18 @@ class TardyGardener::VegScraper
   def self.scrape_veg_summary_etc
     TardyGardener::Vegetable.all.each do | vegetable |
       doc = Nokogiri::HTML(open(vegetable.url_basic_info))
+      binding.pry
       vegetable.summary = doc.css('.normal p')[2].text.gsub("\r\n", "")
       vegetable.light = doc.css("div.intro ul li")[0].text
-      vegetable.sprouting_time = doc.css("div.intro blockquote p")[2].text.gsub(/[\r\n\t]/, "").gsub(/Days to emergence: \d\d? to /, "")
+      # Have to come back to the spouting_time below.  Find an Xcode. If this gets crazy complicated, consider making it a separate method.  Maybe another approach is to get the string, split it, and then find the first element that matches two or three numbers
+
+      # This sort or works: vegetable.sprouting_time = doc.css("div.intro blockquote p")[2].text.gsub(/[\r\n\t]/, "").gsub(/Days to emergence: \d\d? to /, "")
+
+      # vegetable.url_variety_info = doc.css('jibberish') #this shows that even if the css is not there, it will still populate, so something else is going on.
+      # This is originally what I had but leads to an error at egyptian onions b/c there is no array.  Trying to use xcode but it's not working - doc.css('div.intro blockquote a')[0]['href']
+      # This does not work -- vegetable.url_variety_info = doc.css('div.intro a')[0]['href']
+      # puts "#{vegetable.name} - #{vegetable.url_variety_info}"
+      #end
     end
   end
 
