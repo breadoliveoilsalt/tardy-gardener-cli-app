@@ -47,13 +47,21 @@ class TardyGardener::CLI
       puts "\t #{start_num}. #{all_veg[start_num - 1].name}"
       start_num += 1
     end
-      binding.pry
+
+    list_options(start_num, end_num)
+
+  end
+
+  def list_options(start_num, end_num)
+
 
     puts <<~HEREDOC
 
       To see more vegetables, type 'more'."
 
       To see basic information about a particular vegetable, type in the vegetable's number.
+
+      To exit, type 'exit.'
 
         HEREDOC
 
@@ -70,9 +78,9 @@ class TardyGardener::CLI
 
   end
 
-  def find_end_num(start_number)
-    if start_number + 14 < all_veg.count
-      start_number + 14
+  def find_end_num(start_num)
+    if start_num + 14 < all_veg.count
+      start_num + 14
     else
       all_veg.count
     end
