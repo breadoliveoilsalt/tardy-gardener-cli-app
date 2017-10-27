@@ -24,4 +24,8 @@ class TardyGardener::Vegetable
   end
 # In the middle of refactoring to see if I can have there be more symmetry for passing hashes along to add data
 
+  def self.reset!
+    @@all.clear
+  end
+  
 end

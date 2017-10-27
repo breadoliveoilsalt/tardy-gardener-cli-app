@@ -2,6 +2,7 @@ class TardyGardener::CLI
 
   def call
     welcome
+    reset_vegetable_objects
     create_and_populate_vegetable_objects
     display_vegetables(1)
   end
@@ -17,9 +18,13 @@ class TardyGardener::CLI
         HEREDOC
   end
 
+  def reset_vegetable_objects
+    TardyGardener::Vegetable.reset!
+  end
+
   def create_and_populate_vegetable_objects
     veg_create_objects(basic_data)
-    TardyGardener::VegScraper.scrape_veg_summary_etc
+    # Uncomment to get descriptions: TardyGardener::VegScraper.scrape_veg_summary_etc
     # Add last scraping here
   end
 
@@ -54,8 +59,19 @@ class TardyGardener::CLI
 
   def list_options(start_num, end_num)
 
+    if end_num == all_veg.count
+      puts <<~HEREDOC
 
-    puts <<~HEREDOC
+      To restart the list of vegetables, type 'more'."
+
+      To see basic information about a particular vegetable, type in the vegetable's number.
+
+      To exit, type 'exit.'
+
+        HEREDOC
+
+    else
+      puts <<~HEREDOC
 
       To see more vegetables, type 'more'."
 
@@ -64,7 +80,7 @@ class TardyGardener::CLI
       To exit, type 'exit.'
 
         HEREDOC
-
+    end
 
     print ">> "
     input = gets.strip.downcase
