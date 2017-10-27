@@ -62,22 +62,22 @@ class TardyGardener::CLI
     if end_num == all_veg.count
       puts <<~HEREDOC
 
-      To restart the list of vegetables, type 'more'."
+      ** To restart the list of vegetables, type 'more'."
 
-      To see basic information about a particular vegetable, type in the vegetable's number.
+      ** To see basic information about a particular vegetable, type in the vegetable's number.
 
-      To exit, type 'exit.'
+      ** To exit, type 'exit.'
 
         HEREDOC
 
     else
       puts <<~HEREDOC
 
-      To see more vegetables, type 'more'."
+      ** To see more vegetables, type 'more.'
 
-      To see basic information about a particular vegetable, type in the vegetable's number.
+      ** To see basic information about a particular vegetable, type in the vegetable's number.
 
-      To exit, type 'exit.'
+      ** To exit, type 'exit.'
 
         HEREDOC
     end
@@ -89,7 +89,11 @@ class TardyGardener::CLI
       restart_or_continue_list?(start_num, end_num)
     elsif input.to_i.between?(1, all_veg.count)
       display_summary(input)
-
+    elsif input == "exit"
+      goodbye
+    else
+        puts "\n*********Sorry, I don't understand that.*********"
+        list_options(start_num, end_num)
     end
 
   end
@@ -111,4 +115,8 @@ class TardyGardener::CLI
     end
   end
 
+  def goodbye
+    puts "\n\n***** Thanks for stopping by! :) *****\n\n\n"
+    exit
+  end
 end
