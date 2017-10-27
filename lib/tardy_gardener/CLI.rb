@@ -2,10 +2,10 @@ class TardyGardener::CLI
 
   attr_accessor :display_start_num, :display_end_num
 
+  # can't initialize with these b/c numbers are dependent on all_veg.count...so veg objects need to populate first
   # def initialize
-  #   @display_start_num = 1
-  #   @display_end_num = find_end_num(@display_start_num)
-  #   binding.pry
+  #    @display_start_num = 1
+  #    @display_end_num = find_end_num(self.display_start_num)
   # end
 
   def call
@@ -14,6 +14,7 @@ class TardyGardener::CLI
       # numbers to display to user are based on the #count of Vegetables::all, so need that to load first
       # before instance variables @display_start_num and @display_end_num can be set
     set_display_start_and_end_numbers
+#    puts display_start_num
     display_vegetables(display_start_num)
   end
 
@@ -30,8 +31,9 @@ class TardyGardener::CLI
 
   def create_and_populate_vegetable_objects
     veg_create_objects(basic_data)
-# UNCOMMENT LATER/COMMENTING-OUT TO SAVE TIME:    veg_add_summary_etc
-#    veg_add_maturity_info(data_level_3)
+    # TardyGardener::VegScraper.scrape_veg_summary_etc
+    # UNCOMMENT LATER/COMMENTING-OUT TO SAVE TIME:    veg_add_summary_etc
+
   end
 
 
@@ -45,24 +47,29 @@ class TardyGardener::CLI
     TardyGardener::VegScraper.scrape_veg_basics
   end
 
-  def veg_add_summary_etc
-    TardyGardener::VegScraper.scrape_veg_summary_etc
-  end
-
   def all_veg
     TardyGardener::Vegetable.all
   end
 
   def display_vegetables(display_start_num)
 
-    display_end_num = find_end_num(display_start_num)
+    self.display_end_num = find_end_num(display_start_num)
 
     puts "\n\nHere is a list of vegetables:\n\n "
 
     while display_start_num <= display_end_num
       puts "\t #{display_start_num}. #{all_veg[display_start_num - 1].name}"
-      display_start_num += 1
+      self.display_start_num = self.display_start_num + 1
+      #Ths main problem here is that this is not changing display_start_num permanently
     end
+    binding.pry #But when I exit the pry, it is showing that display_end_num has increased.
+    # Maybe make everything an @variable for now.  Also, put a binding.pry under list options to
+    # See where you are.
+    list_options
+
+  end
+
+  def list_options
 
     puts <<~HEREDOC
 
@@ -76,17 +83,19 @@ class TardyGardener::CLI
     input = gets.strip.downcase
 
     if input == "more"
+      puts display_end_num
+      #can do raise here to display end num and start num
       display_end_num == all_veg.count ? display_vegetables(1) : display_vegetables(display_start_num)
     elsif input.to_i.between?(1, all_veg.count)
       index = input.to_i - 1
       puts all_veg[index].url_basic_info
-
     end
+
   end
 
   def set_display_start_and_end_numbers
     @display_start_num = 1
-    @display_end_num = find_end_num(@display_start_num)
+    @display_end_num = find_end_num(self.display_start_num)
   end
 
   def find_end_num(start_number)
@@ -96,7 +105,5 @@ class TardyGardener::CLI
       all_veg.count
     end
   end
-
-
 
 end
