@@ -68,9 +68,11 @@ class TardyGardener::CLI
 
       -------------------------------------
 
-      ** To restart the list of vegetables, type 'more'."
-
       ** To see basic information about a particular vegetable, type in the vegetable's number.
+
+      ** To restart the list of vegetables, type 'm'.
+
+      ** To repeat the current vegetable list, type 'r'.
 
       ** To exit, type 'exit.'
 
@@ -83,9 +85,11 @@ class TardyGardener::CLI
 
       -------------------------------------
 
-      ** To see more vegetables, type 'more.'
-
       ** To see basic information about a particular vegetable, type in the vegetable's number.
+
+      ** To see more vegetables, type 'm'.
+
+      ** To repeat the current vegetable list, type 'r'.
 
       ** To exit, type 'exit.'
 
@@ -99,7 +103,9 @@ class TardyGardener::CLI
     puts ""
     puts "-------------------------------------"
 
-    if input == "more"
+    if input == "r"
+      display_vegetables(start_num - display_amount - 1)
+    elsif input == "m"
       restart_or_continue_list?(start_num, end_num)
     elsif input.to_i.between?(1, veg_count)
       display_summary(input, start_num, end_num)
@@ -123,11 +129,15 @@ class TardyGardener::CLI
   end
 
   def determine_end_num(start_num)
-    if start_num + 14 < veg_count
-      start_num + 14
+    if start_num + display_amount < veg_count
+      start_num + display_amount
     else
       veg_count
     end
+  end
+
+  def display_amount
+      14
   end
 
   def goodbye
