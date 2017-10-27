@@ -46,7 +46,7 @@ class TardyGardener::CLI
 
     end_num = determine_end_num(start_num)
 
-    puts "\n\nHere is a list of vegetables:\n\n "
+    puts "\n\nVegetable List:\n\n "
 
     while start_num <= end_num
       puts "\t #{start_num}. #{all_veg[start_num - 1].name}"
@@ -82,8 +82,12 @@ class TardyGardener::CLI
         HEREDOC
     end
 
+    puts "-------------------------------------"
+    puts ""
     print ">> "
     input = gets.strip.downcase
+    puts ""
+    puts "-------------------------------------"
 
     if input == "more"
       restart_or_continue_list?(start_num, end_num)
