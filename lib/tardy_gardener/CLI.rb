@@ -1,5 +1,11 @@
 class TardyGardener::CLI
 
+  attr_accessor :display_amount
+
+  def initialize
+    @display_amount = 14
+  end
+
   def call
     welcome
     reset_vegetable_objects
@@ -104,7 +110,7 @@ class TardyGardener::CLI
     puts "-------------------------------------"
 
     if input == "r"
-      display_vegetables(start_num - display_amount - 1)
+      display_vegetables(start_num - @display_amount - 1)
     elsif input == "m"
       restart_or_continue_list?(start_num, end_num)
     elsif input.to_i.between?(1, veg_count)
@@ -129,16 +135,16 @@ class TardyGardener::CLI
   end
 
   def determine_end_num(start_num)
-    if start_num + display_amount < veg_count
-      start_num + display_amount
+    if start_num + @display_amount < veg_count
+      start_num + @display_amount
     else
       veg_count
     end
   end
-
-  def display_amount
-      14
-  end
+  #
+  # def display_amount
+  #     14
+  # end
 
   def goodbye
     puts "\n\n***** Thanks for stopping by! :) *****\n\n\n"
