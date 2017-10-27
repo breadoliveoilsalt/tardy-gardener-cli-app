@@ -3,7 +3,7 @@ class TardyGardener::CLI
   def call
     welcome
     create_and_populate_vegetable_objects
-
+    display_vegetables
   end
 
   def welcome
@@ -40,5 +40,17 @@ class TardyGardener::CLI
     TardyGardener::VegScraper.scrape_veg_summary_etc
   end
 
+  def all_veg
+    TardyGardener::Vegetable.all
+  end
 
+  def display_vegetables(start_number = 1)
+    end_number = start_number + 9
+    puts "Here is a list of vegetables: "
+    puts ""
+    while start_number <= end_number
+      puts "\t #{start_number}. #{all_veg[start_number - 1].name}"
+      start_number += 1
+    end
+  end
 end

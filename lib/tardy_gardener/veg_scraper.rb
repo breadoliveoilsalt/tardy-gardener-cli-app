@@ -15,9 +15,10 @@ class TardyGardener::VegScraper
   def self.scrape_veg_summary_etc
     TardyGardener::Vegetable.all.each do | vegetable |
       doc = Nokogiri::HTML(open(vegetable.url_basic_info))
-      binding.pry
       vegetable.summary = doc.css('.normal p')[2].text.gsub("\r\n", "")
       vegetable.light = doc.css("div.intro ul li")[0].text
+      #Remaining fields to populate here: vegetable.sprouting_time and vegetable.url_variety_info
+
       # Have to come back to the spouting_time below.  Find an Xcode. If this gets crazy complicated, consider making it a separate method.  Maybe another approach is to get the string, split it, and then find the first element that matches two or three numbers
 
       # This sort or works: vegetable.sprouting_time = doc.css("div.intro blockquote p")[2].text.gsub(/[\r\n\t]/, "").gsub(/Days to emergence: \d\d? to /, "")
