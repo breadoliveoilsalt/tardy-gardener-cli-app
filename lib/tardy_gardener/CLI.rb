@@ -53,15 +53,15 @@ class TardyGardener::CLI
     TardyGardener::Vegetable.all
   end
 
-  def display_vegetables(start_number)
+  def display_vegetables(display_start_num)
 
-    end_number = find_end_num(start_number)
+    display_end_num = find_end_num(display_start_num)
 
     puts "\n\nHere is a list of vegetables:\n\n "
 
-    while start_number <= end_number
-      puts "\t #{start_number}. #{all_veg[start_number - 1].name}"
-      start_number += 1
+    while display_start_num <= display_end_num
+      puts "\t #{display_start_num}. #{all_veg[display_start_num - 1].name}"
+      display_start_num += 1
     end
 
     puts <<~HEREDOC
@@ -76,11 +76,10 @@ class TardyGardener::CLI
     input = gets.strip.downcase
 
     if input == "more"
-      end_number == all_veg.count ? display_vegetables(1) : display_vegetables(start_number)
+      display_end_num == all_veg.count ? display_vegetables(1) : display_vegetables(display_start_num)
     elsif input.to_i.between?(1, all_veg.count)
       index = input.to_i - 1
       puts all_veg[index].url_basic_info
-      list_options
 
     end
   end
