@@ -14,8 +14,6 @@ class TardyGardener::CLI
 
 
         Please wait while data is loading...
-
-
         HEREDOC
   end
 
@@ -45,8 +43,11 @@ class TardyGardener::CLI
   end
 
   def display_vegetables(start_number = 1)
+
     end_number = find_end_number(start_number)
+
     puts "\n\nHere is a list of vegetables:\n\n "
+
     while start_number <= end_number
       puts "\t #{start_number}. #{all_veg[start_number - 1].name}"
       start_number += 1
@@ -56,7 +57,7 @@ class TardyGardener::CLI
     input = gets.strip.downcase
     case input
     when "more"
-      display_vegetables(start_number)
+      end_number == all_veg.count ? display_vegetables(1) : display_vegetables(start_number)
     end
   end
 
@@ -67,5 +68,11 @@ class TardyGardener::CLI
       all_veg.count
     end
   end
+
+    #   all_veg.count.between?(start_number, start_number + 9)
+    #   all_veg.
+    # else
+    #   all_veg.count
+    # end
 
 end
