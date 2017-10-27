@@ -21,7 +21,7 @@ class TardyGardener::CLI
 
   def create_and_populate_vegetable_objects
     veg_create_objects(basic_data)
-    veg_add_summary_etc
+# UNCOMMENT LATER/COMMENTING-OUT TO SAVE TIME:    veg_add_summary_etc
 #    veg_add_maturity_info(data_level_3)
   end
 
@@ -45,12 +45,27 @@ class TardyGardener::CLI
   end
 
   def display_vegetables(start_number = 1)
-    end_number = start_number + 9
-    puts "Here is a list of vegetables: "
-    puts ""
+    end_number = find_end_number(start_number)
+    puts "\n\nHere is a list of vegetables:\n\n "
     while start_number <= end_number
       puts "\t #{start_number}. #{all_veg[start_number - 1].name}"
       start_number += 1
     end
+
+    puts "\nTo see more vegetables, type 'more'."
+    input = gets.strip.downcase
+    case input
+    when "more"
+      display_vegetables(start_number)
+    end
   end
+
+  def find_end_number(start_number)
+    if start_number + 9 < all_veg.count
+      start_number + 9
+    else
+      all_veg.count
+    end
+  end
+
 end
