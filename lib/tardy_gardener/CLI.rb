@@ -1,20 +1,8 @@
 class TardyGardener::CLI
 
-  # attr_accessor :display_start_num, :display_end_num
-
-  # can't initialize with these b/c numbers are dependent on all_veg.count...so veg objects need to populate first
-  # def initialize
-  #    @display_start_num = 1
-  #    @display_end_num = find_end_num(self.display_start_num)
-  # end
-
   def call
     welcome
     create_and_populate_vegetable_objects
-      # numbers to display to user are based on the #count of Vegetables::all, so need that to load first
-      # before instance variables @display_start_num and @display_end_num can be set
-#    set_display_start_and_end_numbers
-#    puts display_start_num
     display_vegetables(1)
   end
 
@@ -32,8 +20,7 @@ class TardyGardener::CLI
   def create_and_populate_vegetable_objects
     veg_create_objects(basic_data)
     TardyGardener::VegScraper.scrape_veg_summary_etc
-    # UNCOMMENT LATER/COMMENTING-OUT TO SAVE TIME:    veg_add_summary_etc
-
+    # Add last scraping here
   end
 
   def veg_create_objects(data)
@@ -60,6 +47,7 @@ class TardyGardener::CLI
       puts "\t #{start_num}. #{all_veg[start_num - 1].name}"
       start_num += 1
     end
+      binding.pry
 
     puts <<~HEREDOC
 
@@ -70,6 +58,7 @@ class TardyGardener::CLI
         HEREDOC
 
 
+    print ">> "
     input = gets.strip.downcase
 
     if input == "more"
@@ -80,11 +69,6 @@ class TardyGardener::CLI
     end
 
   end
-
-  # def set_display_start_and_end_numbers
-  #   @display_start_num = 1
-  #   @display_end_num = find_end_num(self.display_start_num)
-  # end
 
   def find_end_num(start_number)
     if start_number + 14 < all_veg.count
