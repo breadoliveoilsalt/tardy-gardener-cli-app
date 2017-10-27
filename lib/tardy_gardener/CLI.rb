@@ -1,6 +1,6 @@
 class TardyGardener::CLI
 
-  attr_accessor :display_start_num, :display_end_num
+  # attr_accessor :display_start_num, :display_end_num
 
   # can't initialize with these b/c numbers are dependent on all_veg.count...so veg objects need to populate first
   # def initialize
@@ -13,9 +13,9 @@ class TardyGardener::CLI
     create_and_populate_vegetable_objects
       # numbers to display to user are based on the #count of Vegetables::all, so need that to load first
       # before instance variables @display_start_num and @display_end_num can be set
-    set_display_start_and_end_numbers
+#    set_display_start_and_end_numbers
 #    puts display_start_num
-    display_vegetables(display_start_num)
+    display_vegetables(1)
   end
 
   def welcome
@@ -51,25 +51,16 @@ class TardyGardener::CLI
     TardyGardener::Vegetable.all
   end
 
-  def display_vegetables(display_start_num)
+  def display_vegetables(start_num)
 
-    self.display_end_num = find_end_num(display_start_num)
+    end_num = find_end_num(start_num)
 
     puts "\n\nHere is a list of vegetables:\n\n "
 
-    while display_start_num <= display_end_num
-      puts "\t #{display_start_num}. #{all_veg[display_start_num - 1].name}"
-      self.display_start_num = self.display_start_num + 1
-      #Ths main problem here is that this is not changing display_start_num permanently
+    while start_num <= end_num
+      puts "\t #{start_num}. #{all_veg[end_num - 1].name}"
+      start_num += 1
     end
-    binding.pry #But when I exit the pry, it is showing that display_end_num has increased.
-    # Maybe make everything an @variable for now.  Also, put a binding.pry under list options to
-    # See where you are.
-    list_options
-
-  end
-
-  def list_options
 
     puts <<~HEREDOC
 
@@ -83,20 +74,18 @@ class TardyGardener::CLI
     input = gets.strip.downcase
 
     if input == "more"
-      puts display_end_num
-      #can do raise here to display end num and start num
-      display_end_num == all_veg.count ? display_vegetables(1) : display_vegetables(display_start_num)
+      end_num == all_veg.count ? display_vegetables(1) : display_vegetables(start_num)
     elsif input.to_i.between?(1, all_veg.count)
       index = input.to_i - 1
-      puts all_veg[index].url_basic_info
+      puts "\n\n#{all_veg[index].url_basic_info}\n\n"
     end
 
   end
 
-  def set_display_start_and_end_numbers
-    @display_start_num = 1
-    @display_end_num = find_end_num(self.display_start_num)
-  end
+  # def set_display_start_and_end_numbers
+  #   @display_start_num = 1
+  #   @display_end_num = find_end_num(self.display_start_num)
+  # end
 
   def find_end_num(start_number)
     if start_number + 14 < all_veg.count
