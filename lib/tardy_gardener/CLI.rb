@@ -1,9 +1,20 @@
 class TardyGardener::CLI
 
+  attr_accessor :display_start_num, :display_end_num
+
+  # def initialize
+  #   @display_start_num = 1
+  #   @display_end_num = find_end_num(@display_start_num)
+  #   binding.pry
+  # end
+
   def call
     welcome
     create_and_populate_vegetable_objects
-    display_vegetables
+      # numbers to display to user are based on the #count of Vegetables::all, so need that to load first
+      # before instance variables @display_start_num and @display_end_num can be set
+    set_display_start_and_end_numbers
+    display_vegetables(display_start_num)
   end
 
   def welcome
@@ -42,9 +53,9 @@ class TardyGardener::CLI
     TardyGardener::Vegetable.all
   end
 
-  def display_vegetables(start_number = 1)
+  def display_vegetables(start_number)
 
-    end_number = find_end_number(start_number)
+    end_number = find_end_num(start_number)
 
     puts "\n\nHere is a list of vegetables:\n\n "
 
@@ -53,26 +64,40 @@ class TardyGardener::CLI
       start_number += 1
     end
 
-    puts "\nTo see more vegetables, type 'more'."
+    puts <<~HEREDOC
+
+      To see more vegetables, type 'more'."
+
+      To see basic information about a particular vegetable, type in the vegetable's number.
+
+        HEREDOC
+
+
     input = gets.strip.downcase
-    case input
-    when "more"
+
+    if input == "more"
       end_number == all_veg.count ? display_vegetables(1) : display_vegetables(start_number)
+    elsif input.to_i.between?(1, all_veg.count)
+      index = input.to_i - 1
+      puts all_veg[index].url_basic_info
+      list_options
+
     end
   end
 
-  def find_end_number(start_number)
-    if start_number + 9 < all_veg.count
-      start_number + 9
+  def set_display_start_and_end_numbers
+    @display_start_num = 1
+    @display_end_num = find_end_num(@display_start_num)
+  end
+
+  def find_end_num(start_number)
+    if start_number + 14 < all_veg.count
+      start_number + 14
     else
       all_veg.count
     end
   end
 
-    #   all_veg.count.between?(start_number, start_number + 9)
-    #   all_veg.
-    # else
-    #   all_veg.count
-    # end
+
 
 end
