@@ -31,11 +31,10 @@ class TardyGardener::CLI
 
   def create_and_populate_vegetable_objects
     veg_create_objects(basic_data)
-    # TardyGardener::VegScraper.scrape_veg_summary_etc
+    TardyGardener::VegScraper.scrape_veg_summary_etc
     # UNCOMMENT LATER/COMMENTING-OUT TO SAVE TIME:    veg_add_summary_etc
 
   end
-
 
   def veg_create_objects(data)
     data.each do | veg_hash |
@@ -58,7 +57,7 @@ class TardyGardener::CLI
     puts "\n\nHere is a list of vegetables:\n\n "
 
     while start_num <= end_num
-      puts "\t #{start_num}. #{all_veg[end_num - 1].name}"
+      puts "\t #{start_num}. #{all_veg[start_num - 1].name}"
       start_num += 1
     end
 
@@ -77,7 +76,7 @@ class TardyGardener::CLI
       end_num == all_veg.count ? display_vegetables(1) : display_vegetables(start_num)
     elsif input.to_i.between?(1, all_veg.count)
       index = input.to_i - 1
-      puts "\n\n#{all_veg[index].url_basic_info}\n\n"
+      puts "\n\n#{all_veg[index].name}:  #{all_veg[index].summary}\n\n"
     end
 
   end
