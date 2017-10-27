@@ -42,6 +42,10 @@ class TardyGardener::CLI
     TardyGardener::Vegetable.all
   end
 
+  def veg_count
+    all_veg.count
+  end
+
   def display_vegetables(start_num)
 
     end_num = determine_end_num(start_num)
@@ -59,8 +63,10 @@ class TardyGardener::CLI
 
   def list_options(start_num, end_num)
 
-    if end_num == all_veg.count
+    if end_num == veg_count
       puts <<~HEREDOC
+
+      -------------------------------------
 
       ** To restart the list of vegetables, type 'more'."
 
@@ -68,10 +74,14 @@ class TardyGardener::CLI
 
       ** To exit, type 'exit.'
 
+      -------------------------------------
+
         HEREDOC
 
     else
       puts <<~HEREDOC
+
+      -------------------------------------
 
       ** To see more vegetables, type 'more.'
 
@@ -79,11 +89,11 @@ class TardyGardener::CLI
 
       ** To exit, type 'exit.'
 
+      -------------------------------------
+
         HEREDOC
     end
 
-    puts "-------------------------------------"
-    puts ""
     print ">> "
     input = gets.strip.downcase
     puts ""
@@ -91,7 +101,7 @@ class TardyGardener::CLI
 
     if input == "more"
       restart_or_continue_list?(start_num, end_num)
-    elsif input.to_i.between?(1, all_veg.count)
+    elsif input.to_i.between?(1, veg_count)
       display_summary(input, start_num, end_num)
     elsif input == "exit"
       goodbye
@@ -103,21 +113,20 @@ class TardyGardener::CLI
   end
 
   def restart_or_continue_list?(start_num, end_num)
-    end_num == all_veg.count ? display_vegetables(1) : display_vegetables(start_num)
+    end_num == veg_count ? display_vegetables(1) : display_vegetables(start_num)
   end
 
   def display_summary(input, start_num, end_num)
     index = input.to_i - 1
     puts "\n\n#{all_veg[index].name}:  #{all_veg[index].summary}\n\n"
-    puts "-------------------------------------"
     list_options(start_num, end_num)
   end
 
   def determine_end_num(start_num)
-    if start_num + 14 < all_veg.count
+    if start_num + 14 < veg_count
       start_num + 14
     else
-      all_veg.count
+      veg_count
     end
   end
 
@@ -125,4 +134,9 @@ class TardyGardener::CLI
     puts "\n\n***** Thanks for stopping by! :) *****\n\n\n"
     exit
   end
+
+  # def line_break
+  #     puts "-------------------------------------"
+  # end
+
 end
