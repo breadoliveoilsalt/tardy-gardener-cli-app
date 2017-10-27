@@ -24,7 +24,7 @@ class TardyGardener::CLI
 
   def create_and_populate_vegetable_objects
     veg_create_objects(basic_data)
-    # Uncomment to get descriptions: TardyGardener::VegScraper.scrape_veg_summary_etc
+    TardyGardener::VegScraper.scrape_veg_summary_etc
     # Add last scraping here
   end
 
@@ -92,11 +92,11 @@ class TardyGardener::CLI
     if input == "more"
       restart_or_continue_list?(start_num, end_num)
     elsif input.to_i.between?(1, all_veg.count)
-      display_summary(input)
+      display_summary(input, start_num, end_num)
     elsif input == "exit"
       goodbye
     else
-        puts "\n*********Sorry, I don't understand that.*********"
+        puts "\n*********Sorry, I don't understand that.*********\n"
         list_options(start_num, end_num)
     end
 
@@ -106,9 +106,11 @@ class TardyGardener::CLI
     end_num == all_veg.count ? display_vegetables(1) : display_vegetables(start_num)
   end
 
-  def display_summary(input)
+  def display_summary(input, start_num, end_num)
     index = input.to_i - 1
     puts "\n\n#{all_veg[index].name}:  #{all_veg[index].summary}\n\n"
+    puts "-------------------------------------"
+    list_options(start_num, end_num)
   end
 
   def determine_end_num(start_num)
