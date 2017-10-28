@@ -138,15 +138,14 @@ class TardyGardener::CLI
     input = gets.strip.downcase
     puts "\n-------------------------------------"
 
-#reformat this eventually to mirror options above
-    if input == "r"
-      display_vegetables
+    if input.to_i.between?(1, veg_count)
+      display_summary(input)
     elsif input == "m"
       continue_or_restart_list?
     elsif input == "b" && self.start_num != 1
       list_go_back
-    elsif input.to_i.between?(1, veg_count)
-      display_summary(input)
+    elsif input == "r"
+      display_vegetables
     elsif input == "exit"
       goodbye
     else
