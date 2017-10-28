@@ -2,4 +2,4 @@
 
 require_relative '../lib/tardy_gardener.rb'
 
-TardyGardener::TardyGardenerCLI.new.call
+TardyGardener::CLI.new.call
