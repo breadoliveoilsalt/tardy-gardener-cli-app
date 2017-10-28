@@ -128,6 +128,12 @@ class TardyGardener::CLI
         HEREDOC
     end
 
+    get_user_input
+
+  end
+
+  def get_user_input
+
     print ">> "
     input = gets.strip.downcase
     puts "\n-------------------------------------"
