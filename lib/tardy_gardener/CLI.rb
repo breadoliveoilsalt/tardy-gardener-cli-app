@@ -1,16 +1,19 @@
 class TardyGardener::CLI
 
-  attr_accessor :display_amount
+  attr_accessor :start_num, :display_amount, :end_num
+      # consider changing to display_start, display_increment, display_end
 
   def initialize
+    @start_num = 1
     @display_amount = 14
+    @end_num = nil
   end
 
   def call
     welcome
     reset_vegetable_objects
     create_and_populate_vegetable_objects
-    display_vegetables(1)
+    display_vegetables
   end
 
   def welcome
@@ -52,24 +55,24 @@ class TardyGardener::CLI
     all_veg.count
   end
 
-  def display_vegetables(start_num)
+  def display_vegetables
 
-    end_num = determine_end_num(start_num)
+    @end_num = determine_end_num
 
     puts "\n\nVegetable List:\n\n "
 
-    while start_num <= end_num
-      puts "\t #{start_num}. #{all_veg[start_num - 1].name}"
-      start_num += 1
+    while @start_num <= @end_num
+      puts "\t #{@start_num}. #{all_veg[@start_num - 1].name}"
+      @start_num = @start_num + 1
     end
 
-    list_options(start_num, end_num)
+    list_options
 
   end
 
-  def list_options(start_num, end_num)
+  def list_options
 
-    if start_num = display_amount + 1
+    if @end_num < veg_count
       puts <<~HEREDOC
 
       -------------------------------------
@@ -86,7 +89,7 @@ class TardyGardener::CLI
 
         HEREDOC
 
-    elsif end_num == veg_count
+    elsif @end_num == veg_count
       puts <<~HEREDOC
 
       -------------------------------------
@@ -132,9 +135,10 @@ class TardyGardener::CLI
 
 #reformat this eventually to mirror options above
     if input == "r"
-      display_vegetables(start_num - display_amount - 1)
+      @start_num = @start_num - @display_amount - 1
+      display_vegetables
     elsif input == "m"
-      restart_or_continue_list?(start_num, end_num)
+      restart_or_continue_list?
     elsif input == "b" && start_num != display_amount + 1
       display_vegetables(start_num - (display_amount*2) - 2 )
     elsif input.to_i.between?(1, veg_count)
@@ -148,8 +152,13 @@ class TardyGardener::CLI
 
   end
 
-  def restart_or_continue_list?(start_num, end_num)
-    end_num == veg_count ? display_vegetables(1) : display_vegetables(start_num)
+  def restart_or_continue_list?
+    if @end_num == veg_count
+      @start_num = 1
+      display_vegetables
+    else
+      display_vegetables
+    end
   end
 
   def display_summary(input, start_num, end_num)
@@ -158,9 +167,9 @@ class TardyGardener::CLI
     list_options(start_num, end_num)
   end
 
-  def determine_end_num(start_num)
-    if start_num + display_amount < veg_count
-      start_num + display_amount
+  def determine_end_num
+    if @start_num + @display_amount < veg_count
+      @start_num + @display_amount
     else
       veg_count
     end
