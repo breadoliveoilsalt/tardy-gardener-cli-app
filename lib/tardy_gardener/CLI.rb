@@ -136,7 +136,7 @@ class TardyGardener::CLI
     elsif input == "m"
       restart_or_continue_list?(start_num, end_num)
     elsif input == "b" && start_num != display_amount + 1
-      display_vegetables(start_num - (display_amount*2) -2 )
+      display_vegetables(start_num - (display_amount*2) - 2 )
     elsif input.to_i.between?(1, veg_count)
       display_summary(input, start_num, end_num)
     elsif input == "exit"
