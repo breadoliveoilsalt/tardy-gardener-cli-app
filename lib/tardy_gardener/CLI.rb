@@ -30,7 +30,7 @@ class TardyGardener::CLI
 
   def create_and_populate_vegetable_objects
     veg_create_objects(basic_data)
-    TardyGardener::VegScraper.scrape_veg_summary_etc
+    #uncomment later -- TardyGardener::VegScraper.scrape_veg_summary_etc
     # Add last scraping here
   end
 
@@ -69,7 +69,24 @@ class TardyGardener::CLI
 
   def list_options(start_num, end_num)
 
-    if end_num == veg_count
+    if start_num = display_amount + 1
+      puts <<~HEREDOC
+
+      -------------------------------------
+
+      ** To see basic information about a particular vegetable, type in the vegetable's number.
+
+      ** To see more vegetables, type 'm'.
+
+      ** To repeat the current vegetable list, type 'r'.
+
+      ** To exit, type 'exit.'
+
+      -------------------------------------
+
+        HEREDOC
+
+    elsif end_num == veg_count
       puts <<~HEREDOC
 
       -------------------------------------
@@ -113,11 +130,12 @@ class TardyGardener::CLI
     puts ""
     puts "-------------------------------------"
 
+#reformat this eventually to mirror options above
     if input == "r"
       display_vegetables(start_num - display_amount - 1)
     elsif input == "m"
       restart_or_continue_list?(start_num, end_num)
-    elsif input == "b"
+    elsif input == "b" && start_num != display_amount + 1
       display_vegetables(start_num - (display_amount*2) -2 )
     elsif input.to_i.between?(1, veg_count)
       display_summary(input, start_num, end_num)
