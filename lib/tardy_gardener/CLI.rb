@@ -1,12 +1,11 @@
 class TardyGardener::CLI
 
-  attr_accessor :start_num, :display_amount, :end_num
-      # consider changing to display_start, display_increment, display_end
+  attr_accessor :start_num, :display_amount#, :end_num
+      # consider changing to list_start_num, display_increment, List_end_num
 
   def initialize
     @start_num = 1
-    @display_amount = 14
-    @end_num = nil
+    @display_amount = 15
   end
 
   def call
@@ -57,13 +56,14 @@ class TardyGardener::CLI
 
   def display_vegetables
 
-    @end_num = determine_end_num
-
     puts "\n\nVegetable List:\n\n "
 
-    while @start_num <= @end_num
-      puts "\t #{@start_num}. #{all_veg[@start_num - 1].name}"
-      @start_num = @start_num + 1
+    counter = @start_num
+      #change to: start_num = #display_start
+
+    while counter <= end_num
+      puts "\t #{counter}. #{all_veg[counter - 1].name}"
+      counter += 1
     end
 
     list_options
@@ -72,7 +72,7 @@ class TardyGardener::CLI
 
   def list_options
 
-    if @end_num < veg_count
+    if @start_num == 1
       puts <<~HEREDOC
 
       -------------------------------------
@@ -89,7 +89,7 @@ class TardyGardener::CLI
 
         HEREDOC
 
-    elsif @end_num == veg_count
+    elsif end_num == veg_count
       puts <<~HEREDOC
 
       -------------------------------------
@@ -130,62 +130,58 @@ class TardyGardener::CLI
 
     print ">> "
     input = gets.strip.downcase
-    puts ""
-    puts "-------------------------------------"
+    puts "\n-------------------------------------"
 
 #reformat this eventually to mirror options above
     if input == "r"
-      @start_num = @start_num - @display_amount - 1
       display_vegetables
     elsif input == "m"
-      restart_or_continue_list?
-    elsif input == "b" && start_num != display_amount + 1
-      display_vegetables(start_num - (display_amount*2) - 2 )
+      continue_or_restart_list?
+    elsif input == "b" && @start_num != 1
+      list_go_back
     elsif input.to_i.between?(1, veg_count)
-      display_summary(input, start_num, end_num)
+      display_summary(input)
     elsif input == "exit"
       goodbye
     else
         puts "\n*********Sorry, I don't understand that.*********\n"
-        list_options(start_num, end_num)
+        list_options
     end
 
   end
 
-  def restart_or_continue_list?
-    if @end_num == veg_count
+  def continue_or_restart_list?
+    if end_num == veg_count
       @start_num = 1
       display_vegetables
     else
+      @start_num = @start_num + @display_amount
       display_vegetables
     end
   end
 
-  def display_summary(input, start_num, end_num)
-    index = input.to_i - 1
-    puts "\n\n#{all_veg[index].name}:  #{all_veg[index].summary}\n\n"
-    list_options(start_num, end_num)
+  def list_go_back
+    @start_num = @start_num - @display_amount
+    display_vegetables
   end
 
-  def determine_end_num
-    if @start_num + @display_amount < veg_count
-      @start_num + @display_amount
+  def display_summary(input)
+    index = input.to_i - 1
+    puts "\n\n#{all_veg[index].name}:  #{all_veg[index].summary}\n\n"
+    list_options
+  end
+
+  def end_num
+    if @start_num + @display_amount - 1 < veg_count
+      @start_num + @display_amount - 1
     else
       veg_count
     end
   end
-  #
-  # def display_amount
-  #     14
-  # end
 
   def goodbye
     puts "\n\n***** Thanks for stopping by! :) *****\n\n\n"
     exit
   end
-
-  # def line_break
-  #     puts "-------------------------------------"
-  # end
 
 end
