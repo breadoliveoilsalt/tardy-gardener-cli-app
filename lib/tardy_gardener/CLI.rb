@@ -58,7 +58,7 @@ class TardyGardener::CLI
 
     puts "\n\nVegetable List:\n\n "
 
-    counter = start_num
+    counter = self.start_num
       #change to: start_num = #display_start
 
     while counter <= end_num
@@ -72,7 +72,7 @@ class TardyGardener::CLI
 
   def list_options
 
-    if start_num == 1
+    if self.start_num == 1
       puts <<~HEREDOC
 
       -------------------------------------
@@ -137,7 +137,7 @@ class TardyGardener::CLI
       display_vegetables
     elsif input == "m"
       continue_or_restart_list?
-    elsif input == "b" && start_num != 1
+    elsif input == "b" && self.start_num != 1
       list_go_back
     elsif input.to_i.between?(1, veg_count)
       display_summary(input)
@@ -152,17 +152,16 @@ class TardyGardener::CLI
 
   def continue_or_restart_list?
     if end_num == veg_count
-      start_num = 1
+      self.start_num = 1
       display_vegetables
     else
-      binding.pry
-      start_num = start_num + display_amount
+      self.start_num = self.start_num + self.display_amount
       display_vegetables
     end
   end
 
   def list_go_back
-    start_num = start_num - display_amount
+    self.start_num = self.start_num - self.display_amount
     display_vegetables
   end
 
@@ -173,8 +172,8 @@ class TardyGardener::CLI
   end
 
   def end_num
-    if start_num + display_amount - 1 < veg_count
-      start_num + display_amount - 1
+    if self.start_num + self.display_amount - 1 < veg_count
+      self.start_num + self.display_amount - 1
     else
       veg_count
     end
