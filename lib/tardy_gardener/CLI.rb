@@ -11,7 +11,7 @@ class TardyGardener::CLI
     welcome
     reset_vegetable_objects
     create_and_populate_vegetable_objects
-    binding.pry
+  #  binding.pry
     list_vegetables
   end
 
@@ -172,7 +172,8 @@ class TardyGardener::CLI
   def display_summary(input)
     index = input.to_i - 1
     puts "\n\n#{all_veg[index].name}:  #{all_veg[index].summary}"
-    puts "\n\n Sunlight Level:  #{all_veg[index].light}"
+    puts "\n\nSunlight Level:  #{all_veg[index].light}"
+    puts "\n\nApprox. Sprouting Time:  #{all_veg[index].sprouting_time} days"
     list_options
   end
 
