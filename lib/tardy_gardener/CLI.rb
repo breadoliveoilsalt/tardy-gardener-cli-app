@@ -31,7 +31,7 @@ class TardyGardener::CLI
 
   def create_and_populate_vegetable_objects
     veg_create_objects(basic_data)
-    #uncomment later -- TardyGardener::VegScraper.scrape_veg_summary_etc
+    TardyGardener::VegScraper.scrape_veg_summary_etc
     # Add last scraping here
   end
 
@@ -58,7 +58,6 @@ class TardyGardener::CLI
     puts "\n\nVegetable List:\n\n "
 
     counter = self.list_start_num
-      #change to: list_start_num = #display_start
 
     while counter <= list_end_num
       puts "\t #{counter}. #{all_veg[counter - 1].name}"
