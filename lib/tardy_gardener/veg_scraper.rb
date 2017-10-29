@@ -16,29 +16,11 @@ class TardyGardener::VegScraper
     TardyGardener::Vegetable.all.each do | vegetable |
       doc = Nokogiri::HTML(open(vegetable.url_basic_info))
       vegetable.summary = doc.css('.normal p')[2].text.gsub("\r\n", "")
-      #binding.pry
       vegetable.light = self.get_vegetable_light(doc)
-
-      #vegetable.light = doc.css("div.intro ul li")[0].text || "Not available"
-      # vegetable.light = doc.css("div.intro ul li").text || "Not available"
-      #binding.pry
-
       vegetable.sprouting_time = doc.xpath('//p[contains(text(), "emergence")]').text.gsub(/[\r\n\t]/, "").split.detect { |i| i.to_i != 0 } || "Not available"
+      binding.pry
+      vegetable.url_variety_info = doc.xpath('//blockquote[contains(text(), "Browse")]//a')[0]['href'] || "Not available"
 
-      #Make sure sprouting time works/ then play with light...what to do if I have more than one element there...flatten? how turn into text?
-
-#      binding.pry
-      #Remaining fields to populate here: vegetable.sprouting_time and vegetable.url_variety_info
-
-      # Have to come back to the spouting_time below.  Find an Xcode. If this gets crazy complicated, consider making it a separate method.  Maybe another approach is to get the string, split it, and then find the first element that matches two or three numbers
-
-      # This sort or works: vegetable.sprouting_time = doc.css("div.intro blockquote p")[2].text.gsub(/[\r\n\t]/, "").gsub(/Days to emergence: \d\d? to /, "")
-
-      # vegetable.url_variety_info = doc.css('jibberish') #this shows that even if the css is not there, it will still populate, so something else is going on.
-      # This is originally what I had but leads to an error at egyptian onions b/c there is no array.  Trying to use xcode but it's not working - doc.css('div.intro blockquote a')[0]['href']
-      # This does not work -- vegetable.url_variety_info = doc.css('div.intro a')[0]['href']
-      # puts "#{vegetable.name} - #{vegetable.url_variety_info}"
-      #end
     end
   end
 
@@ -50,6 +32,21 @@ class TardyGardener::VegScraper
       query
     end
   end
+
+  #Make sure sprouting time works/ then play with light...what to do if I have more than one element there...flatten? how turn into text?
+
+#      binding.pry
+  #Remaining fields to populate here: vegetable.sprouting_time and vegetable.url_variety_info
+
+  # Have to come back to the spouting_time below.  Find an Xcode. If this gets crazy complicated, consider making it a separate method.  Maybe another approach is to get the string, split it, and then find the first element that matches two or three numbers
+
+  # This sort or works: vegetable.sprouting_time = doc.css("div.intro blockquote p")[2].text.gsub(/[\r\n\t]/, "").gsub(/Days to emergence: \d\d? to /, "")
+
+  # vegetable.url_variety_info = doc.css('jibberish') #this shows that even if the css is not there, it will still populate, so something else is going on.
+  # This is originally what I had but leads to an error at egyptian onions b/c there is no array.  Trying to use xcode but it's not working - doc.css('div.intro blockquote a')[0]['href']
+  # This does not work -- vegetable.url_variety_info = doc.css('div.intro a')[0]['href']
+  # puts "#{vegetable.name} - #{vegetable.url_variety_info}"
+  #end
 
 
   # This seems to have gotten them
