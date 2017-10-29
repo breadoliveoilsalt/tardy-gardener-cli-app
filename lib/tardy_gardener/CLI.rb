@@ -11,7 +11,7 @@ class TardyGardener::CLI
     welcome
     reset_vegetable_objects
     create_and_populate_vegetable_objects
-  #  binding.pry
+    binding.pry
     list_vegetables
   end
 

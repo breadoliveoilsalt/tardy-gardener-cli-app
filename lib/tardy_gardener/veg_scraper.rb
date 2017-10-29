@@ -16,7 +16,13 @@ class TardyGardener::VegScraper
     TardyGardener::Vegetable.all.each do | vegetable |
       doc = Nokogiri::HTML(open(vegetable.url_basic_info))
       vegetable.summary = doc.css('.normal p')[2].text.gsub("\r\n", "")
-      vegetable.light = doc.css("div.intro ul li")[0].text || "Not available"
+      #binding.pry
+      vegetable.light = self.get_vegetable_light(doc)
+
+      #vegetable.light = doc.css("div.intro ul li")[0].text || "Not available"
+      # vegetable.light = doc.css("div.intro ul li").text || "Not available"
+      #binding.pry
+
       vegetable.sprouting_time = doc.xpath('//p[contains(text(), "emergence")]').text.gsub(/[\r\n\t]/, "").split.detect { |i| i.to_i != 0 } || "Not available"
 
       #Make sure sprouting time works/ then play with light...what to do if I have more than one element there...flatten? how turn into text?
@@ -35,6 +41,16 @@ class TardyGardener::VegScraper
       #end
     end
   end
+
+  def self.get_vegetable_light(doc)
+    query = doc.css('ul[type="square"]')[0].text.gsub(/[\r\t\n]/, "")
+    if query == "full sunpart shade" || query == "part shadefull shade"
+      "full sun or part shade"
+    else
+      query
+    end
+  end
+
 
   # This seems to have gotten them
 
@@ -56,4 +72,4 @@ class TardyGardener::VegScraper
   #each column is a td valign="top" with a div class of "intromuted"
 
 
-end
+end #class end
