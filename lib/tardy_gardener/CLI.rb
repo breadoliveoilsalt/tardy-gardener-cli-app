@@ -11,9 +11,12 @@ class TardyGardener::CLI
     welcome
     reset_vegetable_objects
     create_and_populate_vegetable_objects
-  #  binding.pry
     list_vegetables
   end
+      # If building this out in the future: consider adding method to populate vegetable objects with
+      # the summary and other data as the list is populated.  That is, populate the objects with this information
+      # 15 at a time (the display_amount) to cut down on loading time at the start of the cli.
+
 
   def welcome
     puts <<~HEREDOC
@@ -33,8 +36,9 @@ class TardyGardener::CLI
   def create_and_populate_vegetable_objects
     veg_create_objects(basic_data)
     TardyGardener::VegScraper.scrape_veg_summary_etc
-    # Add last scraping here
   end
+    # If building this out in the future: put third scraping method in #create_and_populate_vegetable_objects
+    # (the method to pull maturity dates from url_variety_info)
 
   def veg_create_objects(data)
     data.each do | veg_hash |

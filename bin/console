@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require "bundler/setup"
+require 'bundler/setup'
 require 'require_all'
 # require_relative "../lib/tardy_gardener"
 

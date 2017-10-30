@@ -32,40 +32,4 @@ class TardyGardener::VegScraper
     end
   end
 
-  #Make sure sprouting time works/ then play with light...what to do if I have more than one element there...flatten? how turn into text?
-
-#      binding.pry
-  #Remaining fields to populate here: vegetable.sprouting_time and vegetable.url_variety_info
-
-  # Have to come back to the spouting_time below.  Find an Xcode. If this gets crazy complicated, consider making it a separate method.  Maybe another approach is to get the string, split it, and then find the first element that matches two or three numbers
-
-  # This sort or works: vegetable.sprouting_time = doc.css("div.intro blockquote p")[2].text.gsub(/[\r\n\t]/, "").gsub(/Days to emergence: \d\d? to /, "")
-
-  # vegetable.url_variety_info = doc.css('jibberish') #this shows that even if the css is not there, it will still populate, so something else is going on.
-  # This is originally what I had but leads to an error at egyptian onions b/c there is no array.  Trying to use xcode but it's not working - doc.css('div.intro blockquote a')[0]['href']
-  # This does not work -- vegetable.url_variety_info = doc.css('div.intro a')[0]['href']
-  # puts "#{vegetable.name} - #{vegetable.url_variety_info}"
-  #end
-
-
-  # This seems to have gotten them
-
-  # list = x.css("div.intromuted a")
-  # list.count has 61 -- got em
-  #
-  # This gives me the html -- will need to add to this
-  #   list.first['href']
-  #   list.first.name -- gives me the name
-
-
-
-  # def get_doc
-  #   doc =
-  #   puts doc
-  # end
-
-  # first clue: class="intromuted" -- this looks like the first column
-  #each column is a td valign="top" with a div class of "intromuted"
-
-
 end #class end
