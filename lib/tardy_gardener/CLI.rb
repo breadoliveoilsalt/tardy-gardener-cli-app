@@ -179,7 +179,7 @@ class TardyGardener::CLI
     puts "\n\n#{all_veg[index].name}:  #{all_veg[index].summary}"
     puts "\n\nSunlight Level:  #{all_veg[index].light}"
     if all_veg[index].sprouting_time
-      puts "\n\nApprox. Sprouting Time:  #{all_veg[index].sprouting_time}"
+      puts "\n\nApprox. Sprouting Time:  #{all_veg[index].sprouting_time} days"
     else
       puts "\n\nApprox. Sprouting Time:  Not Available"
     end
