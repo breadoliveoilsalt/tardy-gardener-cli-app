@@ -17,7 +17,7 @@ class TardyGardener::VegScraper
       doc = Nokogiri::HTML(open(vegetable.url_basic_info))
       vegetable.summary = doc.css('.normal p')[2].text.gsub("\r\n", "")
       vegetable.light = self.get_vegetable_light(doc)
-      vegetable.sprouting_time = doc.xpath('//p[contains(text(), "emergence")]').text.gsub(/[\r\n\t]/, "").split.detect { |i| i.to_i != 0 } || "Not available"
+      vegetable.sprouting_time = doc.xpath('//p[contains(text(), "emergence")]').text.gsub(/[\r\n\t]/, "").split.detect { |i| i.to_i != 0 }
       vegetable.url_variety_info = doc.xpath('//a[contains(text(), "varieties")]/@href').text
     end
   end

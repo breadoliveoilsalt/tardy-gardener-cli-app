@@ -178,7 +178,11 @@ class TardyGardener::CLI
     index = input.to_i - 1
     puts "\n\n#{all_veg[index].name}:  #{all_veg[index].summary}"
     puts "\n\nSunlight Level:  #{all_veg[index].light}"
-    puts "\n\nApprox. Sprouting Time:  #{all_veg[index].sprouting_time} days"
+    if all_veg[index].sprouting_time
+      puts "\n\nApprox. Sprouting Time:  #{all_veg[index].sprouting_time}"
+    else
+      puts "\n\nApprox. Sprouting Time:  Not Available"
+    end
     list_options
   end
 
