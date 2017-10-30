@@ -19,7 +19,6 @@ class TardyGardener::VegScraper
       vegetable.light = self.get_vegetable_light(doc)
       vegetable.sprouting_time = doc.xpath('//p[contains(text(), "emergence")]').text.gsub(/[\r\n\t]/, "").split.detect { |i| i.to_i != 0 } || "Not available"
       vegetable.url_variety_info = doc.xpath('//a[contains(text(), "varieties")]/@href').text
-
     end
   end
 

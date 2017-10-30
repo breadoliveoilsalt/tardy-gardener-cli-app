@@ -4,7 +4,7 @@ class TardyGardener::Vegetable
 
   attr_accessor :name, :light, :sprouting_time, :maturity_date, :summary, :url_basic_info, :url_variety_info
 
-    # If building this out in the future: Note that there are instance variables here that are not
+    # On building this out in the future: Note that there are instance variables here that are not
     # currently used in the cli display -- for example, :url_variety_info and :maturity_date
     # (the former is to be used to scrape the latter).  The original goal here was to build something that
     # would tell you when certain plants would be ready for harvest, based on adding up :sprouting_time and

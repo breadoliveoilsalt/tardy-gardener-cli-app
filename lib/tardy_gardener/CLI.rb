@@ -14,8 +14,9 @@ class TardyGardener::CLI
     list_vegetables
   end
       # If building this out in the future: consider adding method to populate vegetable objects with
-      # the summary and other data as the list is populated.  That is, populate the objects with this information
-      # 15 at a time (the display_amount) to cut down on loading time at the start of the cli.
+      # the summary and other data *as* the list is populated.  That is, populate the objects with this information
+      # 15 at a time (the display_amount) to cut down on loading time at the start of the cli, which currently
+      # creates and populates data for 61 vegetable objects (scraping 62 websites, effectively).
 
 
   def welcome
@@ -38,7 +39,7 @@ class TardyGardener::CLI
     TardyGardener::VegScraper.scrape_veg_summary_etc
   end
     # If building this out in the future: put third scraping method in #create_and_populate_vegetable_objects
-    # (the method to pull maturity dates from url_variety_info)
+    # (the method to pull maturity dates from url_variety_info).
 
   def veg_create_objects(data)
     data.each do | veg_hash |
