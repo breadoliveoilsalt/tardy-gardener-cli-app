@@ -1,34 +1,22 @@
-# TardyGardener
+# Veg Info
 
-## Installation
+Veg Info a cli app that scrapes data from the Cornell University gardening website to provide basic information about certain vegetables.
 
-Add this line to your application's Gemfile:
+To use this cli app:
 
-```ruby
-gem 'tardy_gardener'
-```
+1. Fork and clone it.
 
-And then execute:
+2. In your terminal, run `bundle install`.
 
-    $ bundle
+3. In your terminal, `cd` into the parent directory for Veg Info.  
 
-Or install it yourself as:
+4. To launch the app, in your terminal, type `bin/veg-info`.
 
-    $ gem install tardy_gardener
+Thanks for stopping by!
 
-## Usage
+# Contributing
 
-This cli app scrapes data from the Cornell University gardening website (http://www.gardening.cornell.edu/homegardening/scene0391.html) in an attempt to provide information about certain vegetables in a concise manner.  The goal for future versions is to build out the cli app so that it tells you when certain vegetables will mature if you plant them now (or at a later date).
-
-## Development
-
-After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to rubygems.org (https://rubygems.org).
-
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/breadoliveoilsalt/tardy-gardener-cli-app. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the Contributor Covenant(http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/breadoliveoilsalt/veg-info-cli-app. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the Contributor Covenant (http://contributor-covenant.org) code of conduct.
 
 ## License
 
@@ -36,4 +24,4 @@ The gem is available as open source under the terms of the MIT License(http://op
 
 ## Code of Conduct
 
-Everyone interacting in the TardyGardener project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the code of conduct(https://github.com/breadoliveoilsalt/tardy_gardener/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the Veg Info project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the code of conduct(https://github.com/breadoliveoilsalt/veg-info-cli-app/blob/master/CODE_OF_CONDUCT.md).
