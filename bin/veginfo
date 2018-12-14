@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/veg_info.rb'
+
+VegInfo::CLI.new.call

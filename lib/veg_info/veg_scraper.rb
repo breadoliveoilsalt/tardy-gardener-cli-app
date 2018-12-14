@@ -1,4 +1,4 @@
-class TardyGardener::VegScraper
+class VegInfo::VegScraper
 
   def self.scrape_veg_basics
     array_veg_data = [ ]
@@ -13,7 +13,7 @@ class TardyGardener::VegScraper
   end
 
   def self.scrape_veg_summary_etc
-    TardyGardener::Vegetable.all.each do | vegetable |
+    VegInfo::Vegetable.all.each do | vegetable |
       doc = Nokogiri::HTML(open(vegetable.url_basic_info))
       vegetable.summary = doc.css('.normal p')[2].text.gsub("\r\n", "")
       vegetable.light = self.get_vegetable_light(doc)

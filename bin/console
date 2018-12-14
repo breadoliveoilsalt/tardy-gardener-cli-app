@@ -2,7 +2,6 @@
 
 require 'bundler/setup'
 require 'require_all'
-# require_relative "../lib/tardy_gardener"
 
 require_all './lib'
 # You can add fixtures and/or initialization code here to make experimenting

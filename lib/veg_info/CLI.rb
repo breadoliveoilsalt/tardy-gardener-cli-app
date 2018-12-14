@@ -1,4 +1,4 @@
-class TardyGardener::CLI
+class VegInfo::CLI
 
   attr_accessor :list_start_num, :display_amount
 
@@ -23,7 +23,7 @@ class TardyGardener::CLI
     puts <<~HEREDOC
 
 
-        Welcome to Tardy Gardener!
+        Welcome to Veg Info!
 
 
         Please wait while data is loading...
@@ -31,28 +31,28 @@ class TardyGardener::CLI
   end
 
   def reset_vegetable_objects
-    TardyGardener::Vegetable.reset!
+    VegInfo::Vegetable.reset!
   end
 
   def create_and_populate_vegetable_objects
     veg_create_objects(basic_data)
-    TardyGardener::VegScraper.scrape_veg_summary_etc
+    VegInfo::VegScraper.scrape_veg_summary_etc
   end
     # If building this out in the future: put third scraping method in #create_and_populate_vegetable_objects
     # (the method to pull maturity dates from url_variety_info).
 
   def veg_create_objects(data)
     data.each do | veg_hash |
-      TardyGardener::Vegetable.new(veg_hash)
+      VegInfo::Vegetable.new(veg_hash)
     end
   end
 
   def basic_data
-    TardyGardener::VegScraper.scrape_veg_basics
+    VegInfo::VegScraper.scrape_veg_basics
   end
 
   def all_veg
-    TardyGardener::Vegetable.all
+    VegInfo::Vegetable.all
   end
 
   def veg_count

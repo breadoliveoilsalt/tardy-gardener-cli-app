@@ -1,16 +1,16 @@
 # coding: utf-8
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "tardy_gardener/version"
+require "veg_info/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "tardy_gardener"
-  spec.version       = TardyGardener::VERSION
+  spec.name          = "veg_info"
+  spec.version       = VegInfo::VERSION
   spec.authors       = ["breadoliveoilsalt"]
   spec.email         = ["25881824+breadoliveoilsalt@users.noreply.github.com"]
 
   spec.summary       = %q{Scrapes data from the Cornell Extension website to provide information on certain vegetables and planting times.}
-  spec.homepage      = "https://github.com/breadoliveoilsalt/tardy-gardener-cli-app/tree/master"
+  spec.homepage      = "https://github.com/breadoliveoilsalt/veg-info-cli-app/tree/master"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'

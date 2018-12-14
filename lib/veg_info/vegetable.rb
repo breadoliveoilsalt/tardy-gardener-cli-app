@@ -1,4 +1,4 @@
-class TardyGardener::Vegetable
+class VegInfo::Vegetable
 
   @@all = [ ]
 
